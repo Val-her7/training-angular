@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed, effect } from '@angular/core';
 import { PlayingCard } from "./components/playing-card/playing-card.component";
 import { Monster } from './models/monster.model';
 import { SearchBar } from "./components/search-bar/search-bar.component";
@@ -21,9 +21,17 @@ export class App {
 
   count: number = 0;
 
-  selectedMonsterIndex = 0;
+  selectedMonsterIndex = signal(0);
+  selectedMonster = computed(() => {
+    return this.monsters[this.selectedMonsterIndex()];
+  })
 
   constructor() {
+
+    effect(() => {
+      console.log(this.selectedMonster());
+      
+    })
 
     this.monsters = [];
 
@@ -47,7 +55,7 @@ export class App {
   }
 
   toggleMonster() {
-    this.selectedMonsterIndex = (this.selectedMonsterIndex + 1) % this.monsters.length;
+    this.selectedMonsterIndex.set((this.selectedMonsterIndex() + 1) % this.monsters.length);
   }
 
 }

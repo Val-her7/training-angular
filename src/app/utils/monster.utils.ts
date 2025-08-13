@@ -1,6 +1,6 @@
 export enum MonsterType {
     PLANT = "plant",
-    ELECTRIC = "lectric",
+    ELECTRIC = "electric",
     FIRE = "fire",
     WATER = "water",
 }
