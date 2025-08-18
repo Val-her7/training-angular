@@ -11,4 +11,8 @@ export class Monster {
     attackName: string = "Geo Impact";
     attackStrength: number = 50;
     attackDescription: string = "This is a long description of a monster capacity. Probably something to do with electricity.";
+
+    copy(): Monster {
+        return Object.assign(new Monster(), this);
+    }
 }
