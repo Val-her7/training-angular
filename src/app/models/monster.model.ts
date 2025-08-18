@@ -2,6 +2,7 @@ import { MonsterType } from "../utils/monster.utils";
 
 export class Monster {
     
+    id: number = -1;
     name: string = "Pikachu";
     image: string = "/img/pikachu.png";
     type: MonsterType = MonsterType.ELECTRIC;

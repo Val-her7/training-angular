@@ -1,9 +1,10 @@
-import { Component, signal, model, computed } from '@angular/core';
+import { Component, signal, model, computed, inject } from '@angular/core';
 import { PlayingCard } from "./components/playing-card/playing-card.component";
 import { Monster } from './models/monster.model';
 import { SearchBar } from "./components/search-bar/search-bar.component";
 import { MonsterType } from './utils/monster.utils';
 import { CommonModule } from '@angular/common';
+import { MonsterService } from './services/monster/monster.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,8 @@ import { CommonModule } from '@angular/common';
 })
 export class App {
   protected readonly title = signal('training-angular');
+
+  monsterService = inject(MonsterService);
 
   monsters!: Monster[];
   search = model('');
@@ -56,6 +59,8 @@ export class App {
     monster4.hp = 60;
     monster4.figureCaption = "N°005 Sala";
     this.monsters.push(monster4);
+
+    this.monsterService.hello();
   }
 
 }
