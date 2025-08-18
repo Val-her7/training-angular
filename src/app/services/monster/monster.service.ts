@@ -11,7 +11,25 @@ export class MonsterService {
   currentIndex: number = 1;
 
   constructor() {
+    this.load();
+  }
 
+  private save() {
+    localStorage.setItem("monsters", JSON.stringify(this.monsters));
+  }
+
+  private load() {
+    const monsterData = localStorage.getItem("monster");
+    if(monsterData) {
+      this.monsters = JSON.parse(monsterData).map((monsterJSON: any) => Object.assign(new Monster(), monsterJSON));
+      this.currentIndex = Math.max(...this.monsters.map(monster => monster.id));
+    } else {
+      this.init();
+      this.save();
+    }
+  }
+
+  private init() {
     const monster1 = new Monster();
     monster1.name = "Pikachu";
     monster1.hp = 40;
