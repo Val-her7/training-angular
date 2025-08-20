@@ -19,7 +19,7 @@ export class MonsterService {
   }
 
   private load() {
-    const monsterData = localStorage.getItem("monster");
+    const monsterData = localStorage.getItem("monsters");
     if(monsterData) {
       this.monsters = JSON.parse(monsterData).map((monsterJSON: any) => Object.assign(new Monster(), monsterJSON));
       this.currentIndex = Math.max(...this.monsters.map(monster => monster.id));
@@ -31,12 +31,14 @@ export class MonsterService {
 
   private init() {
     const monster1 = new Monster();
+    monster1.id = this.currentIndex++;
     monster1.name = "Pikachu";
     monster1.hp = 40;
     monster1.figureCaption = "N°002 Pik";
     this.monsters.push(monster1);
 
     const monster2 = new Monster();
+    monster2.id = this.currentIndex++;
     monster2.name = "Carapuce";
     monster2.image = "/img/carapuce.png";
     monster2.type = MonsterType.WATER;
@@ -45,6 +47,7 @@ export class MonsterService {
     this.monsters.push(monster2);
 
     const monster3 = new Monster();
+    monster3.id = this.currentIndex++;
     monster3.name = "Bulbizar";
     monster3.image = "/img/bulbizar.png";
     monster3.type = MonsterType.PLANT;
@@ -53,6 +56,7 @@ export class MonsterService {
     this.monsters.push(monster3);
 
     const monster4 = new Monster();
+    monster4.id = this.currentIndex++;
     monster4.name = "Salameche";
     monster4.image = "/img/salameche.png";
     monster4.type = MonsterType.FIRE;
@@ -76,6 +80,7 @@ export class MonsterService {
     monsterCopy.id = this.currentIndex;
     this.monsters.push(monsterCopy.copy());
     this.currentIndex++;
+    this.save();
 
     return monsterCopy;
   }
@@ -86,6 +91,7 @@ export class MonsterService {
     const monsterIndex = this.monsters.findIndex(originalMonster => originalMonster.id === monster.id);
     if(monsterIndex != -1) {
       this.monsters[monsterIndex] = monsterCopy.copy();
+      this.save();
     }
 
     return monsterCopy;
@@ -95,6 +101,7 @@ export class MonsterService {
     const monsterIndex = this.monsters.findIndex(originalMonster => originalMonster.id === id);
     if(monsterIndex != -1) {
       this.monsters.splice(monsterIndex, 1);
+      this.save();
     }
   }
 }
