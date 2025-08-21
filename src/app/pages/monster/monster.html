@@ -1,18 +1,25 @@
-<form (submit)="submit($event)">
+<form [formGroup]="formGroup" (submit)="submit($event)">
     <div class="form-field">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" [formControl]="name">
-        @if(name.invalid && (name.dirty || name.touched)) {
+        <input type="text" id="name" name="name" formControlName="name">
+        @if(formGroup.get('name')?.invalid && (formGroup.get('name')?.dirty || formGroup.get('name')?.touched)) {
             <div class="error">This field is required.</div>
         }
     </div>
     <div class="form-field">
         <label for="hp">HP</label>
-        <input type="text" id="hp" name="hp" [formControl]="hp">
-        @if(hp.invalid && (hp.dirty || hp.touched)) {
+        <input type="text" id="hp" name="hp" formControlName="hp">
+        @if(formGroup.get('hp')?.invalid && (formGroup.get('hp')?.dirty || formGroup.get('hp')?.touched)) {
             <div class="error">This field is invalid.</div>
         }
     </div>
-    <button type="submit" [disabled]="name.invalid || hp.invalid">Save</button>
+    <div class="form-field">
+        <label for="hp">Type</label>
+        <input type="text" id="type" name="type" formControlName="type">
+        @if(formGroup.get('type')?.invalid && (formGroup.get('type')?.dirty || formGroup.get('type')?.touched)) {
+            <div class="error">This field is invalid.</div>
+        }
+    </div>
+    <button type="submit" [disabled]="formGroup.get('name')?.invalid || formGroup.get('hp')?.invalid">Save</button>
 </form>
 
