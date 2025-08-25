@@ -41,6 +41,10 @@ export class MonsterComponent implements OnInit, OnDestroy {
 
   submit(event: Event) {
     event.preventDefault;
-    
+  }
+
+  isFieldValid(name: string) {
+    const formControl = this.formGroup.get(name);
+    return formControl?.invalid && (formControl?.dirty || formControl?.touched);
   }
 }
